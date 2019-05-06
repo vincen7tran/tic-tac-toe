@@ -1,13 +1,42 @@
-.container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: minmax(200px, auto);
+body {
+  width: 30vw;
 }
 
 .title {
   font-family: arial;
   text-align: center;
   color: #333333;
+}
+
+.scoreboard {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 10px;
+  padding: 12px;
+  border: 2px solid cornflowerblue;
+}
+
+#xWins {
+  grid-column: 1;
+  border-right: 1px solid cornflowerblue;
+}
+
+#oWins {
+  grid-column: 2;
+  border-left: 1px solid cornflowerblue;  
+}
+
+.score {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(3, 10vw);
+  grid-template-rows: repeat(3, 10vw);
 }
 
 .reset {

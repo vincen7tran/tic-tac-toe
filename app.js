@@ -1,43 +1,62 @@
 const spaces = document.querySelectorAll('.space');
-spaces.forEach(space => space.addEventListener('click', handleClick));
+// spaces.forEach(space => space.addEventListener('click', handleClick));
+
+// Bubble Up Event Listener
+document.addEventListener('click', e => {
+  if (e.target.classList.contains('space')) {
+    handleClick(e.target);
+  }
+});
 
 const reset = document.querySelector('.reset');
 reset.addEventListener('click', resetGame);
 
-let playerXTurn = true;
-let board = {};
-const totalSpaces = 9;
+const xScore = document.querySelector('#xWins');
+const oScore = document.querySelector('#oWins');
+
 const blankPlayerBoard = {
   rowOne: 0, rowTwo: 0, rowThree: 0,
   majorDiag: 0, minorDiag: 0,
   colOne: 0, colTwo: 0, colThree: 0
 };
-let xBoard = Object.assign({}, blankPlayerBoard)
-let oBoard = Object.assign({}, blankPlayerBoard);
 
-function handleClick() {
-  const id = parseInt(this.getAttribute('id'));
-  if (board[id]) alert('Space is already taken!');
+const state = {
+  lastWinner: null,
+  playerXTurn: true,
+  board: {},
+  totalSpaces: 9,
+  xBoard: Object.assign({}, blankPlayerBoard),
+  oBoard: Object.assign({}, blankPlayerBoard)
+}
+
+const presentation = {
+  xWins: 0,
+  oWins: 0,
+  xName: '',
+  oName: ''
+};
+
+function handleClick(space) {
+  const id = parseInt(space.getAttribute('id'));
+  if (state.board[id]) alert('Space is already taken!');
   else {
-    markSpace(this);
-    setBoard(playerXTurn, id);
-    turnSwitch();
+    markSpace(space);
+    setBoard(id);
   }
 }
 
 function turnSwitch() {
-  playerXTurn = !playerXTurn;
+  state.playerXTurn = !state.playerXTurn;
 }
 
 function markSpace(space) {
-  if (playerXTurn) space.textContent = 'X';
+  if (state.playerXTurn) space.textContent = 'X';
   else space.textContent = 'O';
 }
 
-function setBoard(playerXTurn, id) {
-  
-  board[id] = true;
-  const currentBoard = playerXTurn ? xBoard : oBoard;
+function setBoard(id) {
+  state.board[id] = true;
+  const currentBoard = state.playerXTurn ? state.xBoard : state.oBoard;
 
   if (id === 0) {
     currentBoard['rowOne']++;
@@ -77,26 +96,47 @@ function setBoard(playerXTurn, id) {
 }
 
 function checkVictory() {
-  for (let key in xBoard) {
-    if (xBoard[key] === 3) endGame('X');
+  for (let key in state.xBoard) {
+    if (state.xBoard[key] === 3) { 
+      presentation.xWins++;
+      return endGame('X');
+    }
   }
-  for (let key in oBoard) {
-    if (oBoard[key] === 3) endGame('O');
+  for (let key in state.oBoard) {
+    if (state.oBoard[key] === 3) {
+      presentation.oWins++;
+     return endGame('O');
+    }
   }
-  if (Object.keys(board).length === totalSpaces) endGame('draw')
+  if (Object.keys(state.board).length === state.totalSpaces) return endGame('draw')
+  turnSwitch();
 }
 
 function endGame(status) {
-  if (status === 'X') alert('Player X Wins!');
-  else if (status === 'O') alert('Player O Wins!');
-  else alert('DRAW!')
+  if (status === 'X') {
+    state.lastWinner = 'X';
+    alert('Player X Wins!');
+  }
+  else if (status === 'O') {
+    state.lastWinner = 'O';
+    alert('Player O Wins!');
+  } 
+  else {
+    alert('DRAW!');
+  }
+  setScore();
   resetGame();
 }
 
 function resetGame() {
-  xBoard = Object.assign({}, blankPlayerBoard);
-  oBoard = Object.assign({}, blankPlayerBoard);
-  board = {};
-  playerXTurn = true;
+  state.xBoard = Object.assign({}, blankPlayerBoard);
+  state.oBoard = Object.assign({}, blankPlayerBoard);
+  state.board = {};
+  state.playerXTurn = state.lastWinner === 'X' ? true : false;
   spaces.forEach(space => space.textContent = '');
+}
+
+function setScore() {
+  xScore.textContent = `X Wins: ${presentation.xWins}`;
+  oScore.textContent = `O Wins: ${presentation.oWins}`;
 }
