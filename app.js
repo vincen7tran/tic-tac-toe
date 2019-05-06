@@ -5,6 +5,8 @@ const spaces = document.querySelectorAll('.space');
 document.addEventListener('click', e => {
   if (e.target.classList.contains('space')) {
     handleClick(e.target);
+  } else if (e.target === modal) {
+    closeModal();
   }
 });
 
@@ -32,8 +34,8 @@ const state = {
 const presentation = {
   xWins: 0,
   oWins: 0,
-  xName: '',
-  oName: ''
+  xName: 'Player 1',
+  oName: 'Player 2'
 };
 
 function handleClick(space) {
@@ -144,6 +146,38 @@ function resetGame() {
 }
 
 function setScore() {
-  xScore.textContent = `X Wins: ${presentation.xWins}`;
-  oScore.textContent = `O Wins: ${presentation.oWins}`;
+  xScore.textContent = `${presentation.xName} X Wins: ${presentation.xWins}`;
+  oScore.textContent = `${presentation.oName} O Wins: ${presentation.oWins}`;
+}
+
+// Modal Implementation
+const modal = document.querySelector('#playerModal');
+const modalBtn = document.querySelector('#modalBtn');
+const closeBtn = document.getElementsByClassName('closeBtn')[0];
+
+modalBtn.addEventListener('click', openModal);
+
+function openModal() {
+  modal.style.display = 'block';
+}
+
+closeBtn.addEventListener('click', closeModal);
+
+function closeModal() {
+  modal.style.display = 'none';
+}
+
+// Player Name Submit
+const nameSubmit = document.querySelector('#playerNameSubmit');
+const p1Input = document.querySelector('#p1Name');
+const p2Input = document.querySelector('#p2Name');
+
+nameSubmit.addEventListener('click', addNames);
+
+function addNames(e) {
+  e.preventDefault();
+  presentation.xName = p1Input.value ? p1Input.value : 'Player 1';
+  presentation.oName = p2Input.value ? p2Input.value : 'Player 2';
+  setScore();
+  closeModal();
 }

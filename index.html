@@ -8,10 +8,10 @@
     </header>
     <div class="scoreboard">
       <div class="score" id="p1">
-        <p class="player">Player 1<br>X Wins: 0</p>
+        <p class="player" id="xWins">Player 1<br>X Wins: 0</p>
       </div>
       <div class="score" id="p2">
-        <p class="player">Player 2<br>O Wins: 0</p>
+        <p class="player" id="oWins">Player 2<br>O Wins: 0</p>
       </div>
     </div>
     <div class="container">
@@ -25,7 +25,28 @@
       <div class="space eight c2" id="7"></div>
       <div class="space nine" id="8"></div>
     </div>
-    <button class="reset">Reset Game</button>
+    <button class="reset button">Reset Game</button>
+    <button id="modalBtn" class="button">Add Player Names</button>
+    <div id="playerModal" class="modal">
+      <div class="modalContent">
+        <div class="modalHeader">
+          <span class="closeBtn">&times;</span>
+          <h2>Insert Player Names</h2>
+        </div>
+        <div class="modalBody">
+            <form id="addPlayerForm">
+                Player 1:<br>
+                <input type="text" id="p1Name"><br><br>
+                Player 2:<br>
+                <input type="text" id="p2Name">
+                <input id="playerNameSubmit" type="submit" value="Play!">
+              </form>
+        </div>
+        <div class="modalFooter">
+          <h3>Modal Footer</h3>
+        </div>
+      </div>
+    </div>
     <script src="app.js"></script>
   </body>
 </html>
