@@ -5,6 +5,17 @@
   grid-gap: 10px;
 }
 
+.header {
+  font-family: arial;
+  text-align: center;
+}
+.space {
+  border: 1px solid blue;
+  border-radius: 5px;
+  position: relative;
+  text-align: center;
+}
+
 .one {
   grid-column: 1;
   grid-row: 1;
