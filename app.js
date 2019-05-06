@@ -125,15 +125,22 @@ function endGame(status) {
     alert('DRAW!');
   }
   setScore();
-  resetGame();
+  newGame();
 }
 
-function resetGame() {
+function newGame() {
   state.xBoard = Object.assign({}, blankPlayerBoard);
   state.oBoard = Object.assign({}, blankPlayerBoard);
   state.board = {};
   state.playerXTurn = state.lastWinner === 'X' ? true : false;
   spaces.forEach(space => space.textContent = '');
+}
+
+function resetGame() {
+  newGame();
+  presentation.xWins = 0;
+  presentation.oWins = 0;
+  setScore();
 }
 
 function setScore() {
