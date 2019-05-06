@@ -4,9 +4,10 @@
   grid-auto-rows: minmax(200px, auto);
 }
 
-.header {
+.title {
   font-family: arial;
   text-align: center;
+  color: #333333;
 }
 
 .reset {

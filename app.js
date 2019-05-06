@@ -19,11 +19,19 @@ function handleClick() {
   const id = parseInt(this.getAttribute('id'));
   if (board[id]) alert('Space is already taken!');
   else {
-    if (playerXTurn) this.textContent = 'X';
-    else this.textContent  = 'O';
+    markSpace(this);
     setBoard(playerXTurn, id);
-    playerXTurn = !playerXTurn;
+    turnSwitch();
   }
+}
+
+function turnSwitch() {
+  playerXTurn = !playerXTurn;
+}
+
+function markSpace(space) {
+  if (playerXTurn) space.textContent = 'X';
+  else space.textContent = 'O';
 }
 
 function setBoard(playerXTurn, id) {
