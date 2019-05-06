@@ -1,5 +1,5 @@
 body {
-  width: 30vw;
+  width: 32vw;
 }
 
 .title {
@@ -37,6 +37,7 @@ body {
   display: grid;
   grid-template-columns: repeat(3, 10vw);
   grid-template-rows: repeat(3, 10vw);
+  border: 15px outset #1C6FA5;
 }
 
 .reset {
