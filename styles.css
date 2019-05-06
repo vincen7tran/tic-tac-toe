@@ -9,6 +9,12 @@
   font-family: arial;
   text-align: center;
 }
+
+.reset {
+  padding: 8px;
+  margin: 10px;
+}
+
 .space {
   border: 1px solid blue;
   border-radius: 5px;
