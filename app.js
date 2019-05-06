@@ -1,16 +1,19 @@
 const spaces = document.querySelectorAll('.space');
 spaces.forEach(space => space.addEventListener('click', handleClick));
 
+const reset = document.querySelector('.reset');
+reset.addEventListener('click', resetGame);
+
 let playerXTurn = true;
-const board = {};
+let board = {};
 const totalSpaces = 9;
 const blankPlayerBoard = {
   rowOne: 0, rowTwo: 0, rowThree: 0,
   majorDiag: 0, minorDiag: 0,
   colOne: 0, colTwo: 0, colThree: 0
 };
-const xBoard = Object.assign({}, blankPlayerBoard)
-const oBoard = Object.assign({}, blankPlayerBoard);
+let xBoard = Object.assign({}, blankPlayerBoard)
+let oBoard = Object.assign({}, blankPlayerBoard);
 
 function handleClick() {
   const id = parseInt(this.getAttribute('id'));
@@ -79,4 +82,13 @@ function endGame(status) {
   if (status === 'X') alert('Player X Wins!');
   else if (status === 'O') alert('Player O Wins!');
   else alert('DRAW!')
+  resetGame();
+}
+
+function resetGame() {
+  xBoard = Object.assign({}, blankPlayerBoard);
+  oBoard = Object.assign({}, blankPlayerBoard);
+  board = {};
+  playerXTurn = true;
+  spaces.forEach(space => space.textContent = '');
 }
